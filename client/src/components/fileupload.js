@@ -1,16 +1,14 @@
 import React, { Fragment, useState } from 'react';
 
- 
-const axios = require('axios');
-const fs = require('fs');
-const LanguageTranslatorV3 = require('ibm-watson/language-translator/v3');
-const { IamAuthenticator } = require('ibm-watson/auth');
 
+const axios = require('axios');
 
 export default function  Fileupload(){
-   const [file, setFile] = useState('');
+   const [File, setFile] = useState('');
    const [FileName, setFilename] = useState('Choose File');
    const [uploadedFile, setUploadedFile] = useState({});
+
+  
 
     const onChange = f => {
         setFile(f.target.files[0]);
@@ -20,10 +18,10 @@ export default function  Fileupload(){
     const onSubmit = async f => {
         f.preventDefault();
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('file', File);
 
         try{
-            const res = await axios.post('/upload', formData, {
+            const res = await axios.post('/translate', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -38,6 +36,7 @@ export default function  Fileupload(){
             }
         }
     }
+    
    /* const languageTranslator = new LanguageTranslatorV3({
         version: '2018-05-01',
         authenticator: new IamAuthenticator({
@@ -87,8 +86,9 @@ export default function  Fileupload(){
                     type='submit'
                     value='Upload'
                     className='btn btn-primary btn-block mt-4'/>
-                    
                 </form>
+                
+                
            </Fragment>
     )
 }

@@ -1,13 +1,16 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
-
+const translator = require('./api/translate');
 const app = express();
 
+
 app.use(fileUpload());
-
-
+//app.use(express.json());
+app.use('/watson', translator);
 // Upload Endpoint
-app.post('/upload', (req, res) => {
+
+
+app.get('/upload', (req, res) => {
   if (req.files === null) {
     return res.status(400).json({ msg: 'No file uploaded' });
   }
